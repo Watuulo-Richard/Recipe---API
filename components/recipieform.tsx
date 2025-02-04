@@ -32,10 +32,9 @@ const {
 async function onSubmit(data:RecipeType){
   console.log(data)
   data.recipePrice = Number(data.recipePrice)
-  data.slug = data.recipeName
+  data.slug = data.recipeName.split(' ').join('-').toLowerCase()
   data.recipeImages = productImages
   setLoading(true)
-  
   try {
     const response = await fetch(`${baseUrl}/api/v1/recipeproducts`,{
       method: "POST",
