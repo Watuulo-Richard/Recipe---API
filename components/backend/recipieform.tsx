@@ -68,7 +68,7 @@ async function onSubmit(data:RecipeType){
       console.log(response)
       setLoading(false)
       reset()
-      toast.success('Recipe Created Successfully!👍🏾👍🏾👍🏾')
+      toast.success('Recipe Created😊 Successfully!👍🏾👍🏾👍🏾')
     } catch (error) {
       setLoading(false)
       toast.error('Failed To Create Recipe!😡😡😡')
