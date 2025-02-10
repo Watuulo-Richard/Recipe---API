@@ -2,12 +2,12 @@ import { db } from "@/prisma/db";
 import { RecipeType } from "@/Types/types";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request:NextRequest, {params}:{params:Promise<{id:string}>}){
+export async function GET(request:NextRequest, {params}:{params:Promise<{slug:string}>}){
     try {
-        const {id} = await params
+        const {slug} = await params
         const getSingleProducts = await db.recipeProduct.findUnique({
             where : {
-                id : id
+                slug : slug
             },
         })
         return NextResponse.json({
@@ -25,12 +25,12 @@ export async function GET(request:NextRequest, {params}:{params:Promise<{id:stri
     }
 }
 
-export async function DELETE(request:NextRequest, {params}:{params:Promise<{id:string}>}){
+export async function DELETE(request:NextRequest, {params}:{params:Promise<{slug:string}>}){
     try {
-        const {id} = await params
+        const {slug} = await params
         const deleteRecipe = await db.recipeProduct.delete({
             where : {
-                id : id
+                slug : slug
             }
         })
         return NextResponse.json({
@@ -52,13 +52,13 @@ export async function DELETE(request:NextRequest, {params}:{params:Promise<{id:s
     }
 }
 
-export async function PATCH(request:NextRequest, {params}:{params:Promise<{id:string}>}){
+export async function PATCH(request:NextRequest, {params}:{params:Promise<{slug:string}>}){
     try {
         const newData:RecipeType = await request.json()
-        const {id} = await params
+        const {slug} = await params
         const updateRecipe = await db.recipeProduct.update({
             where : {
-                id : id
+                slug : slug
             },
             data: newData
         })

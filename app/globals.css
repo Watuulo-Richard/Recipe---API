@@ -33,6 +33,14 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -59,6 +67,14 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -70,3 +86,51 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* applied to container */
+.custom-class {
+  background-color: none;
+}
+
+/* applied to button */
+.custom-class > *[data-ut-element="button"] {
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+  background-color: rgb(17, 24, 39)
+  ;
+}
+
+/* applied to button when uploading */
+.custom-class > *[data-ut-element="button"][data-state="readying"] {
+  background-color: rgb(0 0 0 / 0.5);
+  color: rgb(255, 255, 255);
+  cursor: not-allowed;
+}
+
+/* applied to the button when uploading */
+.custom-class > *[data-ut-element="button"][data-state="uploading"] {
+  background-color: rgb(0 0 0 / 0.5);
+  color: rgb(255, 255, 255);
+  cursor: not-allowed;
+}
+
+/* applied to the upload indicator when uploading */
+.custom-class > *[data-ut-element="button"][data-state="uploading"]::after {
+  background-color: rgb(0 0 0 / 0.5);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-in-out;
+}
+
+
+

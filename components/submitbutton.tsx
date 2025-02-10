@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Loader, Plus } from "lucide-react";
+import { Loader, Send } from "lucide-react";
 import React from "react";
 type SubmitButtonProps = {
   title: string;
@@ -19,7 +19,7 @@ export default function SubmitButton({
   loading,
   className,
   loaderIcon = Loader,
-  buttonIcon = Plus,
+  buttonIcon = Send,
   showIcon = true,
 }: SubmitButtonProps) {
   const LoaderIcon = loaderIcon;

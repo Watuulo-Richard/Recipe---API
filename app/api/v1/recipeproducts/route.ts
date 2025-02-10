@@ -2,7 +2,6 @@
 // import { db } from "@/prisma/db";
 import { db } from "@/prisma/db";
 import { RecipeType } from "@/Types/types";
-import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request:NextRequest){

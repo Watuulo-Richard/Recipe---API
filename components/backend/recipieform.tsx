@@ -12,22 +12,31 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import TextInput from "./textinput";
-import TextArea from "./textarea";
-import MultipleImageInput from "./imageupload";
-import SubmitButton from "./submitbutton";
+import TextInput from "../textinput";
+import TextArea from "../textarea";
+import MultipleImageInput from "../imageupload";
+import SubmitButton from "../submitbutton";
 import { RecipeType } from "@/Types/types";
-import { CircleDollarSign } from "lucide-react";
+import { CircleDollarSign, SmilePlus } from "lucide-react";
+import { RecipeProduct } from "@prisma/client";
+import { fetchSingleRecipe } from "@/actions/fetchrecipes";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-export default function RecipeForm() {
+export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+export default function RecipeForm({receivedSingleRecipeFromFetch}:{receivedSingleRecipeFromFetch?:RecipeProduct | null}) {
 // setting-up-form
 const {
   register,
   handleSubmit,
   // watch,
+  reset,
   formState: { errors },
-} = useForm<RecipeType>()
+} = useForm<RecipeType>({
+  defaultValues: {
+    recipeName: receivedSingleRecipeFromFetch?.recipeName,
+    recipePrice: receivedSingleRecipeFromFetch?.recipePrice,
+    recipeDescription: receivedSingleRecipeFromFetch?.recipeDescription,
+  }
+})
 
 async function onSubmit(data:RecipeType){
   console.log(data)
@@ -35,22 +44,39 @@ async function onSubmit(data:RecipeType){
   data.slug = data.recipeName.split(' ').join('-').toLowerCase()
   data.recipeImages = productImages
   setLoading(true)
-  try {
-    const response = await fetch(`${baseUrl}/api/v1/recipeproducts`,{
-      method: "POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify(data),
-    })
-    console.log(response)
-    setLoading(false)
-    toast.success('Recipe Created Successfully!👍🏾👍🏾👍🏾')
-  } catch (error) {
-    setLoading(false)
-    toast.error('Failed To Create Recipe!😡😡😡')
+  if (receivedSingleRecipeFromFetch) {
+    try {
+      const response = await fetch(`${baseUrl}/api/v1/recipeproducts/${receivedSingleRecipeFromFetch.slug}`, {
+        method: "PATCH",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(data)
+      })
+      console.log(response)
+      setLoading(false)
+      reset()
+      toast.success('Recipe Updated Successfully!👍🏾👍🏾👍🏾')
+    } catch (error) {
+      console.log(error);
+    }
+  }else {
+    try {
+      const response = await fetch(`${baseUrl}/api/v1/recipeproducts`,{
+        method: "POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(data),
+      })
+      console.log(response)
+      setLoading(false)
+      reset()
+      toast.success('Recipe Created Successfully!👍🏾👍🏾👍🏾')
+    } catch (error) {
+      setLoading(false)
+      toast.error('Failed To Create Recipe!😡😡😡')
+    }
   }
 }
 const [loading, setLoading] = useState(false);
-const initialImages = [
+const initialImages = receivedSingleRecipeFromFetch?.recipeImages || [
     "/6.svg",
     "/9.svg",
     "/10.svg",
@@ -60,7 +86,7 @@ const [productImages, setProductImages] = useState(initialImages);
 return (
  
 <form onSubmit={handleSubmit(onSubmit)}>
-  <div className="grid px-8 gap-6 py-8">
+  <div className="w-full">
     <div className="lg:col-span-8 col-span-full space-y-3 flex items-center justify-center">
       <Card className="">
         <CardHeader>

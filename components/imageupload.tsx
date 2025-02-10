@@ -48,7 +48,16 @@ return (
         })}
       </div>
       <UploadButton
-        className=" w-full"
+        className="ut-button:bg-gray-900 ut-button:w-full ut-button:shadow-2xl custom-class"
+        appearance={{
+          button({ ready, isUploading }) {
+            return `custom-button ${
+              ready ? "custom-button-ready" : "custom-button-not-ready"
+            } ${isUploading ? "custom-button-uploading" : ""}`;
+          },
+          container: "custom-container",
+          allowedContent: "custom-allowed-content",
+        }}
         endpoint={endpoint}
         onClientUploadComplete={(res) => {
           // Do something with the response

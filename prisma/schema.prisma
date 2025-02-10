@@ -16,7 +16,7 @@ datasource db {
 model RecipeProduct {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
 
-  slug String
+  slug String @unique
   recipeName String
   recipePrice Int
   recipeDescription String
