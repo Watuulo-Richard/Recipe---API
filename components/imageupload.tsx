@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { UploadButton } from "@/lib/uploadthing";
 import Image from "next/image";
 import React from "react";
@@ -17,19 +17,19 @@ endpoint,
 }: ImageInputProps) {
 // console.log(imageUrls);
 return (
-<Card className="overflow-hidden">
-  <CardHeader>
-    <CardTitle>{title}</CardTitle>
-  </CardHeader>
-  <CardContent>
+<div className="overflow-hidden">
+  <div className="pb-4">
+    <p className="text-sm">{title}</p>
+  </div>
+  <>
     <div className="grid gap-2">
       <Card>
         <Image
-            alt={title}
-            className="h-40 w-full rounded-md object-cover"
-            height="300"
-            src={imageUrls[0]}
-            width="300"
+          alt={title}
+          className="h-60 w-full rounded-md object-cover"
+          height="300"
+          src={imageUrls[0]}
+          width="300"
         />
       </Card>
       <div className="grid grid-cols-3 gap-2">
@@ -73,8 +73,8 @@ return (
         }}
       />
     </div>
-  </CardContent>
-</Card>
+  </>
+</div>
 );
 }
  

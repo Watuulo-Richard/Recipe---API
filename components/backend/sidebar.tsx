@@ -2,51 +2,41 @@
 import Link from 'next/link';
 import React from 'react'
 import { Button } from '../ui/button';
-import { Bell, ChefHat, ExternalLink, Home, LayoutGrid, LineChart, Package, Package2, ShoppingCart, Users } from 'lucide-react';
+import { Bell, ExternalLink, FolderPlus, Home, LayoutGrid, Package2, ReceiptText, Users } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { cn } from '@/lib/utils';
 import { Badge } from '../ui/badge';
 import { usePathname } from 'next/navigation';
-  const sidebarLinks = [
-    {
-      title: "Dashboard",
-      href: "/dashboard",
-      icon: Home,
-    },
-    {
-      title: "Orders",
-      href: "/dashboard/orders",
-      icon: ShoppingCart,
-      count: 6,
-    },
-    {
-      title: "Add New Recipe",
-      href: "/dashboard/addrecipe",
-      icon: ChefHat,
-      count: 5,
-    },
-    {
-      title: "Recipes",
-      href: "/dashboard/allrecipes",
-      icon: Package,
-    },
-    {
-      title: "Customers",
-      href: "/dashboard/customers",
-      icon: Users,
-    },
-    {
-      title: "Categories",
-      href: "/dashboard/categories",
-      icon: LayoutGrid,
-    },
-    {
-      title: "Analytics",
-      href: "/dashboard/analytics",
-      icon: LineChart,
-    },
-  ];
 export default function SideBar() {
+  const sidebarLinks = [
+      {
+        title: "Dashboard",
+        href: "/dashboard",
+        icon: Home,
+      },
+      {
+        title: "Customers Orders",
+        href: "/dashboard/orders",
+        icon: ReceiptText,
+        count: 6,
+      },
+      
+      {
+        title: "Customers",
+        href: "/dashboard/customers",
+        icon: Users,
+      },
+      {
+        title: "Add Recipe Category",
+        href: "/dashboard/addcategoryrecipe",
+        icon: LayoutGrid,
+      },
+      {
+        title: "Add Recipe",
+        href: "/dashboard/addrecipe",
+        icon: FolderPlus,
+      },
+    ];
   const pathname = usePathname();
   return (
     <div className="hidden border-r h-screen bg-muted/40 md:block">

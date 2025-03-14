@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// import { db } from "@/prisma/db";
 import { db } from "@/prisma/db";
 import { RecipeType } from "@/Types/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -11,7 +10,7 @@ export async function POST(request:NextRequest){
             data
         })
         return NextResponse.json({
-            message:"product created successfully",
+            message:"Product Created Successfully",
             data: createRecipe,
             error: null
         }, {
@@ -29,7 +28,7 @@ export async function POST(request:NextRequest){
     }
 }
 
-export async function GET(request:NextRequest){
+export async function GET(){
     try {
         const getAllRecipeProducts = await db.recipeProduct.findMany()
         return NextResponse.json({

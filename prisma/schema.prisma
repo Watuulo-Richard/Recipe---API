@@ -14,14 +14,56 @@ datasource db {
 }
 
 model RecipeProduct {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  slug String @unique
-  recipeName String
-  recipePrice Int
+  slug              String          @unique
+  recipeName        String
+  recipePrice       Int
   recipeDescription String
-  recipeImages String[]
+  recipeImages      String[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  CategoryRecipe    CategoryRecipe? @relation(fields: [categoryRecipeId], references: [id])
+  categoryRecipeId  String?         @db.ObjectId
+}
 
+model CategoryRecipe {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  slug                String          @unique
+  categoryTitle       String
+  categoryImages      String[]
+  categoryDescription String
+  RecipeProducts      RecipeProduct[]
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+}
+
+model TableRecipe {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  slug                String          @unique
+  TableTitle       String
+  
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+ 
+  name     String
+  email    String @unique
+  password String
+  profile  String
+  role          UserRole  @default(USER)
+
+  isVerfied     Boolean   @default(false)
+  token         Int?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }

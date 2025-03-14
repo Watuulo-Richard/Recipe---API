@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
 Card,
@@ -7,8 +8,6 @@ CardDescription,
 CardHeader,
 CardTitle,
 } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
-// import Select from "react-tailwindcss-select";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -18,11 +17,21 @@ import MultipleImageInput from "../imageupload";
 import SubmitButton from "../submitbutton";
 import { RecipeType } from "@/Types/types";
 import { CircleDollarSign, SmilePlus } from "lucide-react";
-import { RecipeProduct } from "@prisma/client";
-import { fetchSingleRecipe } from "@/actions/fetchrecipes";
+import { CategoryRecipe, RecipeProduct } from "@prisma/client";
+import FormSelectInput from "./recipe-form-select";
 
 export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-export default function RecipeForm({receivedSingleRecipeFromFetch}:{receivedSingleRecipeFromFetch?:RecipeProduct | null}) {
+export default function RecipeForm({receivedSingleRecipeFromFetch,fetchedCategories}:{receivedSingleRecipeFromFetch?:RecipeProduct | null;fetchedCategories:CategoryRecipe[]}) {
+console.log(fetchedCategories);
+
+const [selectedMainCategory, setSelectedMainCategory] = useState<any>("");
+const receivedCategories = fetchedCategories.map((fetchedCategory)=>(
+  {
+    value : fetchedCategory.id,
+    label : fetchedCategory.categoryTitle
+  }
+))
+console.log(selectedMainCategory);
 // setting-up-form
 const {
   register,
@@ -39,10 +48,10 @@ const {
 })
 
 async function onSubmit(data:RecipeType){
-  console.log(data)
   data.recipePrice = Number(data.recipePrice)
   data.slug = data.recipeName.split(' ').join('-').toLowerCase()
   data.recipeImages = productImages
+  data.categoryRecipeId = selectedMainCategory.value
   setLoading(true)
   if (receivedSingleRecipeFromFetch) {
     try {
@@ -68,6 +77,7 @@ async function onSubmit(data:RecipeType){
       console.log(response)
       setLoading(false)
       reset()
+      setProductImages(initialImages)
       toast.success('Recipe Created😊 Successfully!👍🏾👍🏾👍🏾')
     } catch (error) {
       setLoading(false)
@@ -87,7 +97,7 @@ return (
  
 <form onSubmit={handleSubmit(onSubmit)}>
   <div className="w-full">
-    <div className="lg:col-span-8 col-span-full space-y-3 flex items-center justify-center">
+    <div className="p-6">
       <Card className="">
         <CardHeader>
           <CardTitle>Create Your Delicious Recipe 🍽️✨</CardTitle>
@@ -125,14 +135,29 @@ return (
                 name="recipeDescription"
               />
             </div>
-            <Card>  
+            
+            <Card>
+              <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3">
+                    <FormSelectInput
+                      label="Recipe Categories"
+                      options={receivedCategories}
+                      option={selectedMainCategory}
+                      setOption={setSelectedMainCategory}
+                      toolTipText="Add New Recipe Category"
+                      href="/dashboard/addcategoryrecipe"
+                    />
+                  </div>
+                </CardContent>
+            </Card>
+            <div>  
                 <MultipleImageInput
                 title="Recipe Images"
                 imageUrls={productImages}
                 setImageUrls={setProductImages}
                 endpoint="imageUploader"
                 />
-            </Card>
+            </div>
           </div>
           <div className="grid gap-3 py-2">
             <SubmitButton loading={loading} title="Add Recipe" loadingTitle = "Saving Please wait..."/>

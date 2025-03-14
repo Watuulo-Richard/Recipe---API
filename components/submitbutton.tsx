@@ -31,7 +31,7 @@ export default function SubmitButton({
           type="button"
           disabled
           className={cn(
-            "items-center flex justify-center rounded-md bg-slate-800/55 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 cursor-not-allowed",
+            "items-center flex justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 cursor-not-allowed",
             className
           )}
         >
@@ -42,7 +42,7 @@ export default function SubmitButton({
         <button
           type="submit"
           className={cn(
-            "flex items-center justify-center rounded-md bg-slate-800 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600",
+            "flex items-center justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black",
             className
           )}
         >
