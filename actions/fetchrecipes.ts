@@ -7,7 +7,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 const API = `${baseUrl}/api/v1/recipeproducts`
 export async function fetchAllRecipes(){
     try {
-        const response = await fetch(API,{cache:"no-store"})
+        const response = await fetch(API,)
         const fetchedRecipes = await response.json()
         return fetchedRecipes.data as RecipeProduct[]
     } catch (error) {
