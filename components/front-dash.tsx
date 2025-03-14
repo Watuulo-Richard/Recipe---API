@@ -1,43 +1,43 @@
 "use client";
-import React, { useState } from "react";
-import Link from "next/link";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Home,
-  LineChart,
-  LucideIcon,
-  Menu,
-  Package,
-  Package2,
-  Search,
-  ShoppingCart,
-  Users,
+    Home,
+    LineChart,
+    LucideIcon,
+    Menu,
+    Package,
+    Package2,
+    Search,
+    ShoppingCart,
+    Users,
 } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { OrderSection } from "./ordersection";
-import { CategoryFilter } from "./categoryfilter";
-import { FoodCarousel } from "./foodcarouselsection";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CategoryRecipe, RecipeProduct, TableRecipe } from "@prisma/client";
+import { CategoryFilter } from "./categoryfilter";
 import CurrencyConverterModal from "./currency-converter-modal";
+import { FoodCarousel } from "./foodcarouselsection";
+import { OrderSection } from "./ordersection";
 
 export function getInitials(name: string | null | undefined): string {
   if (name) {
@@ -75,14 +75,6 @@ export default function FrontEndDashBoard({fetchedProducts, fetchedCategories, f
     // Add state to track the selected category
   const [selectedCategory, setSelectedCategory] = useState("All")
     
-    // {
-    //   title: "Average Wait Time",
-    //   count: 15,
-    //   icon: Clock,
-    //   unit: "",
-    //   detailLink: "/analytics/wait-time",
-    // },
-  
   const patients: PatientProps[] = [
     {
       patientId: "PT001",
@@ -125,10 +117,7 @@ export default function FrontEndDashBoard({fetchedProducts, fetchedCategories, f
       dob: "1983-03-30",
     },
   ];
-  
-  
 
-//   const status = "APPROVED";
   return (
     <div className="min-h-screen">
         <div className="w-full">

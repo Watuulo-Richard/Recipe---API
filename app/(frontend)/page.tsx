@@ -1,4 +1,4 @@
-import { fetchAllRecipes, fetchCategories, fetchTableRecipes } from '@/actions/fetchrecipes';
+import { fetchCategories, fetchTableRecipes } from '@/actions/fetchrecipes';
 import FrontEndDashBoard from '@/components/front-dash';
 
 export type CurrencyItemType = {
@@ -7,13 +7,14 @@ export type CurrencyItemType = {
   rate: number;
 };
 export default async function page() {
-  const fetchedProducts = await fetchAllRecipes()
+  const fetchedProducts = await fetch('/api/v1/recipeproducts').then(res => res.json());
+  const products = fetchedProducts?.data
   const fetchedCategories = await fetchCategories()
 
   const tableRecipes = await fetchTableRecipes()
   return (
     <>
-     <FrontEndDashBoard fetchedTableRecipes={tableRecipes} fetchedCategories = {fetchedCategories} fetchedProducts = { fetchedProducts }/>
+     <FrontEndDashBoard fetchedTableRecipes={tableRecipes} fetchedCategories = {fetchedCategories} fetchedProducts = { products }/>
     </>
   )
 }
